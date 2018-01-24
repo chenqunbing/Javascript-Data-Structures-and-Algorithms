@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>循环队列之击鼓传花</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function Queue(){
+				var items=[];
+				this.enqueue=function(element){
+					items.push(element);
+				}
+				this.dequeue=function(){
+					return items.shift();
+				}
+			}
+			
+			function hotPotato(nameList,num){
+				var queue=new Queue();
+				for(var i=0;i<nameList.length;i++){
+					queue.enqueue(nameList[i]);
+				}
+				
+				var eliminated='';
+				while(queue.size>1){
+					for(var i=0;i<num;i++){
+						queue.enqueue(queue.dequeue());
+					}
+					eliminated=queue.dequeue();
+					console.log(eliminated+"在本轮击鼓传花游戏中淘汰！");
+				}
+				
+				return queue.dequeue();
+			}
+			
+			var nameList=["John","Jack","Camila","Ingrid","Carl"];
+			var winner=hotPotato(nameList,7);
+			console.log("胜利者是："+winner);
+		</script>
+	</body>
+</html>

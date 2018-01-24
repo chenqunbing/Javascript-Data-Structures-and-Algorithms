@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function HashTable(){
+				var table=[];
+				var looselooseHashCode=function(key){
+					var hash=0;
+					for(var i=0;i<key.length;i++){
+						hash+=key.charCodeAt(i);
+					}
+					return hash%37;					
+				}
+				this.put=function(key,value){
+					var position=looselooseHashCode(key);
+					console.log(position+"-"+key);
+					table[position]=value;
+				}
+				this.get=function(key){
+					return table[looselooseHashCode(key)];
+				}
+				this.remove=function(key){
+					table[looselooseHashCode(key)]=undefined;
+				}
+				this.print=function(){
+					for(var i=0;i<table.length;i++){
+						if(table[i]!=undefined){
+							console.log(i+":"+table[i]);
+						}
+					}
+				}
+			}
+			
+			var hash=new HashTable();
+			hash.put("Gandalf","numberOne");//19-Gandalf
+			hash.put("Jhon","numberTwo");//29-Jhon
+			hash.put("Tyrion","numberThree");//16-Tyrion
+			console.log(hash.get("Jhon"));//numberTwo
+			hash.remove("Jhon");
+			hash.print();//16:numberThree  19:numberOne
+			
+			hash.put("Tyrion","numberFive"); //16-Tyrion
+			hash.put("Aaron","numberSix"); //16-Aaron
+			hash.print();//16:numberSix  19:numberOne
+//			如果字符码之和相加相同,则会出现后面的数据覆盖前面的数据
+//			解决方法:分离链接,线性探查,双散列法（图片中有）
+			
+			
+		</script>
+	</body>
+</html>

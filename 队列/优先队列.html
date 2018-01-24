@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function PriorityQueue(){
+				var items=[];
+				//通过构造函数创建对象
+				//需要插入队列的元素（该元素为对象，包括值和优先级）
+				function QueueElement(element,priority){
+					this.element=element;
+					this.priority=priority;
+				}
+				this.enqueue=function(element,priority){
+					//需要插入队列的元素
+					var queueElement=new QueueElement(element,priority);
+					if(this.isEmpty()){
+						items.push(queueElement.element);
+					}else{
+						var added=false;
+						for(var i=0;i<items.length;i++){
+							if(queueElement.priority<items[i].priority){
+								items.splice(i,0,queueElement.element);
+								added=true;
+								break;
+							}
+						}
+						if(!added){
+							items.push(queueElement.element);
+						}
+					}
+//					console.log(queueElement.element)
+				};
+				this.isEmpty=function(){
+					return items.length==0;
+				};
+				this.print=function(){
+					console.log(items);
+				};
+			}
+			var priorityQueue=new PriorityQueue();
+			priorityQueue.enqueue('mike',3);
+			
+			priorityQueue.enqueue('lili',9);
+			priorityQueue.enqueue('jhon',1);
+			priorityQueue.print();
+		</script>
+	</body>
+</html>

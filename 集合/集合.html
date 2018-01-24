@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function Set(){
+				//我们使用对象而不是数组表示集合
+				var items={};
+				var length=0;
+				
+				this.has=function(value){
+					return items.hasOwnProperty(value);
+				}
+				this.add=function(value){
+					if(!this.has(value)){
+						items[value]=value;
+						length++;
+						return true;
+					}
+					return false;
+				}
+				this.remove=function(value){
+					if(this.has(value)){
+						delete items[value];
+						length--;
+						return true;
+					}
+					return false;
+				}
+				this.clear=function(){
+					items={};
+				}
+				this.toString=function(){
+					console.log(items);
+				}
+				this.sizeFunction1=function(){
+					return length;
+				}
+				this.sizeFunction2=function(){
+					return Object.keys(items).length;
+				}
+				this.sizeFunction3=function(){
+					var count=0;
+					for(var prop in items){
+						if(items.hasOwnProperty(prop)){
+							count=count+1;
+						}
+					}
+					return count;
+				}
+				this.values=function(){
+					var key=[];
+					for(var prop in items){
+						key.push(items[prop]);
+					}
+					return key;
+				}
+				//集合的操作
+				//并集
+				this.union=function(otherSet){
+					var unionSet=new Set();
+					var values=this.values();
+					for(var i=0;i<values.length;i++){
+						unionSet.add(values[i]);
+					}
+					values=otherSet.values();
+					for(var i=0;i<values.length;i++){
+						unionSet.add(values[i]);
+					}
+					return unionSet;
+				}
+				//交集
+				this.intersection=function(otherSet){
+					var interSectionSet=new Set();
+					var values=this.values();
+					for(var i=0;i<values.length;i++){
+						if(otherSet.has(values[i])){
+							interSectionSet.add(values[i]);
+						}
+					}
+					return interSectionSet;
+				}
+				//差集
+				this.difference=function(otherSet){
+					var differenceSet=new Set();
+					var values=this.values();
+					for(var i=0;i<values.length;i++){
+						if(!otherSet.has(values[i])){
+							differenceSet.add(values[i]);
+						}
+					}
+					return differenceSet;
+				}
+				//子集
+				//otherSet包含this.set
+				this.subset=function(otherSet){
+					if(this.sizeFunction1()>otherSet.sizeFunction1()){
+						return false;
+					}else{
+						var values=this.values();
+						for(var i=0;i<values.length;i++){
+							if(!otherSet.has(values[i])){
+								return false;
+							}
+						}
+						return true;
+					}
+				}
+				
+				
+			}
+			
+			var set=new Set();
+			set.add(1);
+			set.add(2);
+			set.toString();
+			console.log(set.values());
+			var setA=new Set();
+			setA.add(1);
+			setA.add(2);
+			setA.add(3);
+			var setB=new Set();
+			setB.add(3);
+			setB.add(4);
+			setB.add(5);
+			var unionAB=setA.union(setB);
+			console.log(unionAB.values());
+			var insectionAB=setA.intersection(setB);
+			console.log(insectionAB.values());
+			var differenceAB=setA.difference(setB);
+			console.log(differenceAB.values());
+			
+			var setA=new Set();
+			setA.add(1);
+			setB.add(2);
+			var setB=new Set();
+			setB.add(1);
+			setB.add(2);
+			setB.add(3);
+			var setC=new Set();
+			setC.add(2);
+			setC.add(4);
+			console.log(setA.subset(setB));
+			console.log(setA.subset(setC));
+			
+		</script>
+	</body>
+</html>

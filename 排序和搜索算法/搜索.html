@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//顺序搜索
+			//二分搜索
+			function ArrayList(){
+				var array=[];
+				this.insert=function(item){
+					array.push(item);
+				}
+				this.toString=function(){
+					console.log(array.join());
+				}
+				this.sequentialSearch=function(item){
+					for(var i=0;i<array.length;i++){
+						if(item===array[i]){
+							return i;
+						}
+					}
+					return -1;
+				}
+				this.bubleSort=function(){
+					for(var i=0;i<array.length;i++){
+						for(var j=0;j<array.length-1;j++){
+							if(array[j]>array[j+1]){
+								swap(j,j+1);
+							}
+						}
+					}
+				}
+				this.binarySerach=function(item){
+					this.bubleSort(); //1,2,3,4,5,6
+					var low=0,high=array.length-1,mid,element;
+					while(low<=high){
+						mid=Math.floor((low+high)/2);
+						element=array[mid];
+						if(array[mid]>item){
+							high=mid-1;
+						}else if(array[mid]<item){
+							low=mid+1;
+						}else{
+							return mid;
+						}
+					}
+					return -1;
+					
+				}
+				var swap=function(index1,index2){
+					var temp;
+					temp=array[index1];
+					array[index1]=array[index2];
+					array[index2]=temp;
+				}
+			}
+			
+			function createNonSortedArray(size){
+				var array=new ArrayList();
+				for(var i=size;i>0;i--){
+					array.insert(i);
+				}
+				return array;
+			}
+			var array=createNonSortedArray(5);
+			console.log(array.toString());//5,4,3,2,1
+			console.log(array.sequentialSearch(0));//-1
+			console.log(array.sequentialSearch(2));//3
+			console.log(array.binarySerach(4));//3
+			console.log(array.binarySerach(90));//-1
+		</script>
+	</body>
+</html>

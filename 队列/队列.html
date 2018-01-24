@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function Queue(){
+				var items=[];
+				this.enqueue=function(element){
+					items.push(element);
+				}
+				this.dequeue=function(){
+					return items.shift();
+				}
+				this.front=function(){
+					return item[0];
+				}
+				this.isEmpty=function(){
+					return item.length==0;
+				}
+				this.clear=function(){
+					items=[];
+				}
+				this.size=function(){
+					return items.length;
+				}
+				this.print=function(){
+					console.log(items.toString());
+				}
+			}
+			
+			var queue=new Queue();
+			queue.enqueue("Mike");
+			queue.enqueue("Lili");
+			queue.enqueue("Jhon");
+			console.log(queue);
+//			Queue {enqueue: ƒ, dequeue: ƒ, front: ƒ, isEmpty: ƒ, clear: ƒ, …}clear: ƒ ()dequeue: ƒ ()enqueue: ƒ (element)front: ƒ ()isEmpty: ƒ ()print: ƒ ()size: ƒ ()__proto__: Object
+			console.log(queue.print());//Mike,Lili,Jhon
+			queue.dequeue();
+			console.log(queue.print());//Lili,Jhon
+			
+		
+	</script>
+	</body>
+</html>
